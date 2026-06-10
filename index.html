@@ -52,6 +52,25 @@
   .hist { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 980px; margin-top: 14px; }
   @media (max-width: 860px) { .hist { grid-template-columns: 1fr; } }
   .sl-cols.two { grid-template-columns: 1.1fr 1fr; }
+  /* ---------- FOOTBALL ---------- */
+  .wc-collision { max-width: 980px; background: var(--green-deep); color: #f5efdf; border-radius: 10px; padding: 18px 22px; margin-bottom: 18px; }
+  .wc-collision h3 { margin: 0 0 6px; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .wc-collision .big { font-family: 'Iowan Old Style','Palatino',Georgia,serif; font-size: 21px; line-height: 1.3; }
+  .wc-collision .sub2 { font-size: 12px; color: #cdbf9d; margin-top: 7px; line-height: 1.5; }
+  .wc-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; max-width: 1280px; }
+  .wc-day { background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 13px 15px; }
+  .wc-day h3 { margin: 0 0 2px; font-family: 'Iowan Old Style','Palatino',Georgia,serif; font-size: 17px; color: var(--green); }
+  .wc-day .tag2 { font-size: 9px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--terra); margin-bottom: 8px; }
+  .wc-row { display: flex; gap: 8px; align-items: baseline; font-size: 11.5px; color: #33422f; padding: 2.5px 0; border-bottom: 1px dotted #efe8d6; }
+  .wc-row:last-child { border-bottom: 0; }
+  .wc-row .t2 { font-weight: 600; color: var(--green); white-space: nowrap; min-width: 42px; }
+  .wc-row .v { color: #b9ad92; font-size: 10px; margin-left: auto; white-space: nowrap; padding-left: 6px; }
+  .wc-row.late { color: #a39a85; }
+  .wc-row.late .t2 { color: #a39a85; }
+  .wc-row.star { background: #f3ecd5; margin: 1px -6px; padding: 4px 6px; border-radius: 4px; font-weight: 600; }
+  .wc-foot { max-width: 980px; margin-top: 14px; font-size: 10.5px; color: var(--muted); line-height: 1.6; }
+  .wc-foot a { color: var(--muted); }
+
   .archive { max-width: 980px; margin-top: 16px; }
   .archive h3 { margin: 0 0 10px; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--terra); font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
   .archive .ag { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -249,7 +268,7 @@
 
   footer { text-align: center; font-size: 11px; color: var(--muted); padding: 26px 20px 40px; border-top: 1px solid var(--line); }
   @media print {
-    .hero .strip, .hero-video, .navbar, .filters, .toolbar, .grid, .coltitle.dir, #tab-food, #tab-pubs, #tab-sights, #tab-kinsale, #tab-music, #tab-craic, footer { display: none !important; }
+    .hero .strip, .hero-video, .navbar, .filters, .toolbar, .grid, .coltitle.dir, #tab-food, #tab-pubs, #tab-sights, #tab-kinsale, #tab-music, #tab-footy, #tab-craic, footer { display: none !important; }
     #tab-plan { display: block !important; }
     .slot { min-height: auto; }
     body { background: #fff; }
@@ -285,6 +304,7 @@
   <button data-tab="sights" onclick="switchTab('sights')">The Sights</button>
   <button data-tab="kinsale" onclick="switchTab('kinsale')">Day Trips</button>
   <button data-tab="music" onclick="switchTab('music')">The Music</button>
+  <button data-tab="footy" onclick="switchTab('footy')">The Football</button>
   <button data-tab="craic" onclick="switchTab('craic')">The Craic</button>
 </nav>
 
@@ -404,6 +424,71 @@
       <a class="kin-eat" href="https://www.instagram.com/seasaltcobh/" target="_blank" rel="noopener" style="text-decoration:none"><img id="cobhEat1" alt="Seasalt"><div class="ke-body"><b>Seasalt</b>Ballymaloe-trained café-deli, McKennas' Best in Ireland — "a great little place altogether" (Georgina Campbell). Daytime only; ring 021 481 3383 to confirm Mon/Tue · €</div></a>
       <a class="kin-eat" href="https://www.titanicbarandgrill.ie/" target="_blank" rel="noopener" style="text-decoration:none"><img id="cobhEat2" alt="Titanic Bar &amp; Grill"><div class="ke-body"><b>Titanic Bar &amp; Grill</b>Deck over the harbour in the old White Star ticket office — "highly recommended" (TheTaste.ie). Lunch from 12, walk-ins, group-friendly · €€</div></a>
       <a class="kin-eat" href="https://www.watersedgehotel.ie/restaurant.html" target="_blank" rel="noopener" style="text-decoration:none"><img id="cobhEat3" alt="Jacob's Ladder"><div class="ke-body"><b>Jacob's Ladder</b>Balcony bistro right on the water at the WatersEdge — "the views towards the harbour are invigorating" (TheTaste.ie). Bookable for 6, lunch daily 12–5 · €€</div></a>
+    </div>
+  </section>
+
+  <section class="tab" id="tab-footy">
+    <h2 class="coltitle">The Football — World Cup 2026, in Irish time</h2>
+    <div class="tab-intro"><b>Norway are in. 🇳🇴</b> Group I with France, Senegal and Iraq. Ireland aren't — out on penalties to Czechia in the March playoff, so the locals will be adopting neutrals (or rooting against Czechia). All times below are Irish time: 🍺 = pub-friendly · 🌙 = past closing, needs a late bar or a hotel room. Pubs close ~23:30–00:30; late bars ~02:30.</div>
+    <div class="wc-collision">
+      <h3>The great Friday collision</h3>
+      <div class="big">Norway v France — the Group I decider — kicks off Friday 26 June at 20:00 Irish time. The Cure take the stage at Marlay Park the same evening.</div>
+      <div class="sub2">Haaland v Mbappé v Robert Smith. Options: full-time whistle ~21:50 means the score arrives somewhere around "Pictures of You". One phone on low brightness, agreed signal for goals, and nobody tells the French fans where you're standing. Every other Norway-relevant fixture on this trip is conflict-free.</div>
+    </div>
+    <div class="wc-days">
+      <div class="wc-day"><h3>Thu 25 June</h3><div class="tag2">Arrival day · group finals</div>
+        <div class="wc-row late"><span class="t2">02:00</span><span>🌙 Czechia v Mexico (Ireland's conquerors, at the Azteca)</span></div>
+        <div class="wc-row late"><span class="t2">02:00</span><span>🌙 South Africa v South Korea</span></div>
+        <div class="wc-row"><span class="t2">21:00</span><span>🍺 Ecuador v Germany — Group E decider</span></div>
+        <div class="wc-row"><span class="t2">21:00</span><span>🍺 Curaçao v Ivory Coast</span></div>
+        <div class="wc-row" style="border:0;padding-top:6px"><span style="font-size:10px;color:var(--muted)">Post–Uno Mas pint with Germany's decider — doable.</span></div>
+      </div>
+      <div class="wc-day"><h3>Fri 26 June ⭐</h3><div class="tag2">Norway day · also Cure day</div>
+        <div class="wc-row late"><span class="t2">00:00</span><span>🌙 Japan v Sweden · Tunisia v Netherlands</span></div>
+        <div class="wc-row late"><span class="t2">03:00</span><span>🌙 Turkey v USA · Paraguay v Australia</span></div>
+        <div class="wc-row star"><span class="t2">20:00</span><span>🍺 NORWAY v FRANCE — Group I decider</span><span class="v">Foxborough</span></div>
+        <div class="wc-row"><span class="t2">20:00</span><span>🍺 Senegal v Iraq (simultaneous)</span></div>
+      </div>
+      <div class="wc-day"><h3>Sat 27 June</h3><div class="tag2">Group finals end</div>
+        <div class="wc-row late"><span class="t2">01:00</span><span>🌙 Uruguay v Spain — marquee of the window</span></div>
+        <div class="wc-row late"><span class="t2">01:00</span><span>🌙 Cape Verde v Saudi Arabia</span></div>
+        <div class="wc-row late"><span class="t2">04:00</span><span>🌙 NZ v Belgium · Egypt v Iran</span></div>
+        <div class="wc-row star"><span class="t2">22:00</span><span>🍺 Panama v ENGLAND — Group L decider</span><span class="v">MetLife</span></div>
+        <div class="wc-row"><span class="t2">22:00</span><span>🍺 Croatia v Ghana</span></div>
+      </div>
+      <div class="wc-day"><h3>Sun 28 June</h3><div class="tag2">Knockouts begin · Cork arrival</div>
+        <div class="wc-row late"><span class="t2">00:30</span><span>🌙 Colombia v Portugal — Ronaldo's decider</span></div>
+        <div class="wc-row late"><span class="t2">03:00</span><span>🌙 Jordan v Argentina — Messi's decider</span></div>
+        <div class="wc-row"><span class="t2">20:00</span><span>🍺 R32: Runner-up A v Runner-up B — could be Mexico v Canada</span><span class="v">SoFi</span></div>
+        <div class="wc-row" style="border:0;padding-top:6px"><span style="font-size:10px;color:var(--muted)">First Cork night: 8pm knockout in a MacCurtain St pub.</span></div>
+      </div>
+      <div class="wc-day"><h3>Mon 29 June</h3><div class="tag2">Round of 32 · Kinsale day</div>
+        <div class="wc-row"><span class="t2">18:00</span><span>🍺 R32: Winner C v Runner-up F (likely Brazil v ...)</span><span class="v">Houston</span></div>
+        <div class="wc-row"><span class="t2">21:30</span><span>🍺 R32: Winner E v best 3rd (likely Germany v ...)</span><span class="v">Foxborough</span></div>
+        <div class="wc-row" style="border:0;padding-top:6px"><span style="font-size:10px;color:var(--muted)">Back from Kinsale on the 19:00 bus → the 21:30 game.</span></div>
+      </div>
+      <div class="wc-day"><h3>Tue 30 June ⭐</h3><div class="tag2">Norway's R32 day — if top two</div>
+        <div class="wc-row late"><span class="t2">02:00</span><span>🌙 R32: Winner F v Runner-up C</span></div>
+        <div class="wc-row star"><span class="t2">18:00</span><span>🍺 R32: Runner-up E v Runner-up I ← Norway if 2nd</span><span class="v">Dallas</span></div>
+        <div class="wc-row star"><span class="t2">22:00</span><span>🍺 R32: Winner I v best 3rd ← Norway if group winners</span><span class="v">MetLife</span></div>
+        <div class="wc-row" style="border:0;padding-top:6px"><span style="font-size:10px;color:var(--muted)">Either way: pub-friendly. Book the big Tuesday dinner around it.</span></div>
+      </div>
+      <div class="wc-day"><h3>Wed 1 July</h3><div class="tag2">Round of 32 · back to Dublin</div>
+        <div class="wc-row late"><span class="t2">02:00</span><span>🌙 R32: Winner A (likely Mexico) v best 3rd</span></div>
+        <div class="wc-row star"><span class="t2">17:00</span><span>🍺 R32: Winner L (likely ENGLAND) v best 3rd — could be England v Norway</span><span class="v">Atlanta</span></div>
+        <div class="wc-row"><span class="t2">21:00</span><span>🍺 R32: Winner G (likely Belgium) v best 3rd</span><span class="v">Seattle</span></div>
+      </div>
+      <div class="wc-day"><h3>Thu 2 July</h3><div class="tag2">Departure day</div>
+        <div class="wc-row late"><span class="t2">01:00</span><span>🌙 R32: Winner D (likely USA) v best 3rd — possible Norway slot</span></div>
+        <div class="wc-row"><span class="t2">20:00</span><span>🍺 R32: Winner H (likely Spain) v Runner-up J — from Oslo</span><span class="v">SoFi</span></div>
+      </div>
+    </div>
+    <div class="wc-foot">
+      Knockout matchups are bracket slots until the groups finish on 27 June; Norway's exact third-place path follows FIFA's allocation table. Times cross-checked across
+      <a href="https://www.skysports.com/football/news/11095/13481245/world-cup-2026-fixture-schedule-and-uk-kick-off-times-day-by-day-breakdown-of-all-104-matches-including-england-scotland" target="_blank" rel="noopener">Sky Sports</a>,
+      <a href="https://www.nbcsports.com/soccer/news/2026-world-cup-schedule-kick-off-times-stadiums-dates-groups-how-to-watch-live-bracket" target="_blank" rel="noopener">NBC Sports</a>,
+      <a href="https://www.foxsports.com/stories/soccer/norway-world-cup-2026-schedule-locations-dates-times" target="_blank" rel="noopener">Fox Sports</a> and
+      <a href="https://www.rte.ie/sport/soccer/2026/0326/1565292-world-cup-semi-final-play-off-czechia-v-republic-of-ireland-updates/" target="_blank" rel="noopener">RTÉ</a> (Ireland's playoff exit), retrieved 10 June 2026 — full notes in extras/world-cup.md. Where to watch: see The Pubs — The Palace Bar is 30 seconds from the Dublin hotel; Sin É and Cask cover Cork.
     </div>
   </section>
 
@@ -1187,7 +1272,7 @@ document.getElementById('heroStrip').innerHTML =
  .map(s => '<img src="' + asset(s + '-hero.jpg') + '" alt="">').join('');
 
 /* ---------- tabs ---------- */
-const TABS = ['plan','food','pubs','sights','kinsale','music','craic'];
+const TABS = ['plan','food','pubs','sights','kinsale','music','footy','craic'];
 function switchTab(t) {
   if (!TABS.includes(t)) t = 'plan';
   state.tab = t; save();
