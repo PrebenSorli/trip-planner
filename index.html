@@ -45,7 +45,7 @@
   @media (max-width: 560px) { .navbar { gap: 0; } .navbar button { padding: 9px 10px; letter-spacing: 1.5px; } }
   .tab { display: none; }
   .tab.active { display: block; }
-  #tab-plan { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 700px) 300px; gap: 30px; align-items: start; justify-content: center; }
+  #tab-plan.active { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 700px) 300px; gap: 30px; align-items: start; justify-content: center; }
   .plan-rail { position: sticky; top: 62px; }
   .plan-rail .pr-head { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--terra); border-bottom: 1px solid var(--line); padding-bottom: 7px; margin-bottom: 10px; font-weight: 600; }
   .plan-rail .pr-card { background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; }
@@ -56,7 +56,7 @@
   .pr-day .star2 { background: #f3ecd5; border-radius: 3px; padding: 1px 4px; margin: 1px -4px; color: var(--green); font-weight: 600; }
   .pr-day .dim { color: #a39a85; }
   .pr-more { display: block; margin-top: 9px; font-size: 10.5px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--terra); cursor: pointer; text-decoration: none; }
-  @media (max-width: 1080px) { #tab-plan { grid-template-columns: 1fr; max-width: 700px; } .plan-rail { display: none; } }
+  @media (max-width: 1080px) { #tab-plan.active { grid-template-columns: 1fr; max-width: 700px; } .plan-rail { display: none; } }
   .music-intro { font: italic 13.5px Georgia, serif; color: #56503f; margin-bottom: 16px; }
   .music-intro a { color: var(--terra); }
   #tab-music .setlist { max-width: 980px; }
