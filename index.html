@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dublin &amp; Cork — eating itinerary · 25 June – 2 July 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root {
     --green: #14452f; --green-deep: #0b291c; --cream: #faf7f0; --cream2: #f0e9d6;
@@ -63,6 +65,17 @@
   .hist { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 980px; margin-top: 14px; }
   @media (max-width: 860px) { .hist { grid-template-columns: 1fr; } }
   .sl-cols.two { grid-template-columns: 1.1fr 1fr; }
+  /* ---------- MAP ---------- */
+  #map { height: 68vh; min-height: 460px; border-radius: 10px; border: 1px solid var(--line); }
+  .map-legend { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .ml-chip { display: flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 5px 13px; font-size: 12px; color: #56503f; cursor: pointer; user-select: none; }
+  .ml-chip .swatch { width: 11px; height: 11px; border-radius: 99px; }
+  .ml-chip.off { opacity: .4; }
+  .map-note { margin-top: 10px; font-size: 10.5px; color: var(--muted); }
+  .leaflet-popup-content { font: 12.5px 'Avenir Next','Helvetica Neue',sans-serif; }
+  .leaflet-popup-content b { font-family: 'Iowan Old Style','Palatino',Georgia,serif; font-size: 15px; color: #14452f; }
+  .leaflet-popup-content a { color: #b3552b; cursor: pointer; font-weight: 600; }
+
   /* ---------- FOOTBALL ---------- */
   .wc-collision { max-width: 980px; background: var(--green-deep); color: #f5efdf; border-radius: 10px; padding: 18px 22px; margin-bottom: 18px; }
   .wc-collision h3 { margin: 0 0 6px; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
@@ -279,7 +292,7 @@
 
   footer { text-align: center; font-size: 11px; color: var(--muted); padding: 26px 20px 40px; border-top: 1px solid var(--line); }
   @media print {
-    .hero .strip, .hero-video, .navbar, .filters, .toolbar, .grid, .coltitle.dir, .plan-rail, #tab-food, #tab-pubs, #tab-sights, #tab-kinsale, #tab-music, #tab-footy, #tab-craic, footer { display: none !important; }
+    .hero .strip, .hero-video, .navbar, .filters, .toolbar, .grid, .coltitle.dir, .plan-rail, #tab-map, #tab-food, #tab-pubs, #tab-sights, #tab-kinsale, #tab-music, #tab-footy, #tab-craic, footer { display: none !important; }
     #tab-plan { display: block !important; }
     .slot { min-height: auto; }
     body { background: #fff; }
@@ -310,6 +323,7 @@
 
 <nav class="navbar">
   <button data-tab="plan" onclick="switchTab('plan')">The Plan</button>
+  <button data-tab="map" onclick="switchTab('map')">The Map</button>
   <button data-tab="food" onclick="switchTab('food')">The Food</button>
   <button data-tab="pubs" onclick="switchTab('pubs')">The Pubs</button>
   <button data-tab="sights" onclick="switchTab('sights')">The Sights</button>
@@ -346,6 +360,14 @@
         <a class="pr-more" onclick="switchTab('footy')">Full schedule → The Football</a>
       </div>
     </aside>
+  </section>
+
+  <section class="tab" id="tab-map">
+    <h2 class="coltitle">The Map — Dublin</h2>
+    <div class="tab-intro">Everything researched, pinned: restaurants, pubs, sights, the hotel and Marlay Park. Tap a pin for details. Cork map to follow. Needs internet for the map tiles — use the Google Maps links on each card when offline.</div>
+    <div class="map-legend" id="mapLegend"></div>
+    <div id="map"></div>
+    <div class="map-note">Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" style="color:inherit">OpenStreetMap</a> contributors · pins geocoded via Nominatim, 3 placed by hand (noted in extras) · Marlay Park is 7km south — zoom out to see it.</div>
   </section>
 
   <section class="tab" id="tab-food">
@@ -1300,12 +1322,99 @@ document.getElementById('heroStrip').innerHTML =
  .map(s => '<img src="' + asset(s + '-hero.jpg') + '" alt="">').join('');
 
 /* ---------- tabs ---------- */
-const TABS = ['plan','food','pubs','sights','kinsale','music','footy','craic'];
+const TABS = ['plan','map','food','pubs','sights','kinsale','music','footy','craic'];
 function switchTab(t) {
   if (!TABS.includes(t)) t = 'plan';
   state.tab = t; save();
   TABS.forEach(k => document.getElementById('tab-' + k).classList.toggle('active', k === t));
   document.querySelectorAll('.navbar button').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  if (t === 'map') setTimeout(initMap, 60);
+}
+
+/* ---------- map ---------- */
+const MAP_POINTS = [
+ {cat:'hotel',name:'The Fleet — your hotel',lat:53.34577,lon:-6.25988},
+ {cat:'gig',name:'Marlay Park — The Cure, Fri 26',lat:53.27764,lon:-6.26808},
+ {cat:'food',name:'Uno Mas',lat:53.34107,lon:-6.26528,slug:'uno-mas'},
+ {cat:'food',name:'The Pig’s Ear',lat:53.34221,lon:-6.25518,slug:'pigs-ear'},
+ {cat:'food',name:'Spitalfields',lat:53.3398,lon:-6.2757,slug:'spitalfields'},
+ {cat:'food',name:'Amy Austin',lat:53.3415,lon:-6.26431,slug:'amy-austin'},
+ {cat:'food',name:'HERA',lat:53.36108,lon:-6.2595,slug:'hera'},
+ {cat:'food',name:'Mister S',lat:53.33462,lon:-6.26494,slug:'mister-s'},
+ {cat:'food',name:'BIGFAN',lat:53.34032,lon:-6.26556,slug:'bigfan'},
+ {cat:'food',name:'La Vespa',lat:53.34234,lon:-6.26288,slug:'la-vespa'},
+ {cat:'food',name:'Mongoose',lat:53.34293,lon:-6.27621,slug:'mongoose'},
+ {cat:'food',name:'Notions',lat:53.34071,lon:-6.27439,slug:'notions'},
+ {cat:'food',name:'Fish Shop',lat:53.34723,lon:-6.28198,slug:'fish-shop'},
+ {cat:'food',name:'Montys of Kathmandu',lat:53.34449,lon:-6.26462,slug:'montys-of-kathmandu'},
+ {cat:'food',name:'Dash Burger',lat:53.3468,lon:-6.26835,slug:'dash-burger'},
+ {cat:'food',name:'Pickle',lat:53.33398,lon:-6.26502,slug:'pickle'},
+ {cat:'food',name:'Comet',lat:53.34022,lon:-6.25878,slug:'comet'},
+ {cat:'food',name:'Kicky’s',lat:53.3422,lon:-6.2648,slug:'kickys'},
+ {cat:'pub',name:'The Palace Bar',lat:53.3459,lon:-6.25961},
+ {cat:'pub',name:'The Long Hall',lat:53.34187,lon:-6.26533},
+ {cat:'pub',name:'Grogan’s',lat:53.34224,lon:-6.26271},
+ {cat:'pub',name:'Kehoe’s',lat:53.34122,lon:-6.25945},
+ {cat:'pub',name:'Mulligan’s',lat:53.34696,lon:-6.25555},
+ {cat:'pub',name:'Toner’s',lat:53.33773,lon:-6.25247},
+ {cat:'pub',name:'The Cobblestone',lat:53.34985,lon:-6.27782},
+ {cat:'pub',name:'Bar 1661',lat:53.34926,lon:-6.27046},
+ {cat:'pub',name:'Bruxelles',lat:53.34137,lon:-6.26084},
+ {cat:'sight',name:'Trinity Old Library',lat:53.344,lon:-6.2567},
+ {cat:'sight',name:'Guinness Storehouse',lat:53.34193,lon:-6.28673},
+ {cat:'sight',name:'Kilmainham Gaol',lat:53.34169,lon:-6.30957},
+ {cat:'sight',name:'St Patrick’s Cathedral',lat:53.33956,lon:-6.27148},
+ {cat:'sight',name:'Christ Church Cathedral',lat:53.34341,lon:-6.2712},
+ {cat:'sight',name:'Marsh’s Library',lat:53.3392,lon:-6.27058},
+ {cat:'sight',name:'National Museum — Archaeology',lat:53.3403,lon:-6.2549},
+ {cat:'sight',name:'EPIC Museum',lat:53.34827,lon:-6.24798},
+ {cat:'sight',name:'Irish Rock ’n’ Roll Museum',lat:53.34488,lon:-6.26454},
+];
+const MAP_CATS = {
+  hotel: {label:'Hotel & gig', color:'#0b291c'},
+  gig:   {label:null, color:'#8a2846'},
+  food:  {label:'Restaurants', color:'#b3552b'},
+  pub:   {label:'Pubs', color:'#b08d3e'},
+  sight: {label:'Sights', color:'#14452f'},
+};
+let theMap = null, mapLayers = {};
+function initMap() {
+  if (theMap) { theMap.invalidateSize(); return; }
+  if (typeof L === 'undefined') {
+    document.getElementById('map').innerHTML = '<div style="padding:40px;text-align:center;color:#8a8270;font:italic 14px Georgia,serif">Map tiles need an internet connection — offline, use the Google Maps links on each card instead.</div>';
+    return;
+  }
+  theMap = L.map('map');
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '© OpenStreetMap contributors'
+  }).addTo(theMap);
+  Object.keys(MAP_CATS).forEach(c => { mapLayers[c] = L.layerGroup().addTo(theMap); });
+  MAP_POINTS.forEach(p => {
+    const c = MAP_CATS[p.cat];
+    const m = L.circleMarker([p.lat, p.lon], {
+      radius: p.cat === 'hotel' || p.cat === 'gig' ? 10 : 8,
+      color: '#faf7f0', weight: 2, fillColor: c.color, fillOpacity: 0.95
+    });
+    let html = '<b>' + p.name + '</b><br><span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8a8270">' + (c.label || (p.cat === 'gig' ? 'The Cure' : '')) + '</span>';
+    if (p.slug) html += '<br><a onclick="openDetail(\'' + p.slug + '\')">details & menu →</a>';
+    else if (p.cat === 'pub') html += '<br><a onclick="switchTab(\'pubs\')">see The Pubs →</a>';
+    else if (p.cat === 'sight') html += '<br><a onclick="switchTab(\'sights\')">see The Sights →</a>';
+    m.bindPopup(html);
+    m.addTo(mapLayers[p.cat]);
+  });
+  theMap.setView([53.3435, -6.2655], 14);
+  renderMapLegend();
+}
+function renderMapLegend() {
+  const groups = [['food','Restaurants'],['pub','Pubs'],['sight','Sights'],['hotel','Hotel'],['gig','Marlay Park']];
+  document.getElementById('mapLegend').innerHTML = groups.map(([c, lbl]) =>
+    '<div class="ml-chip" id="mlc-' + c + '" onclick="toggleLayer(\'' + c + '\')"><span class="swatch" style="background:' + MAP_CATS[c].color + '"></span>' + lbl + '</div>').join('');
+}
+function toggleLayer(c) {
+  if (!theMap) return;
+  const chip = document.getElementById('mlc-' + c);
+  if (theMap.hasLayer(mapLayers[c])) { theMap.removeLayer(mapLayers[c]); chip.classList.add('off'); }
+  else { theMap.addLayer(mapLayers[c]); chip.classList.remove('off'); }
 }
 
 function renderAll(){ renderPlans(); renderFilters(); renderDays(); renderGrid(); }
