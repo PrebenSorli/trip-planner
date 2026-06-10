@@ -45,7 +45,18 @@
   @media (max-width: 560px) { .navbar { gap: 0; } .navbar button { padding: 9px 10px; letter-spacing: 1.5px; } }
   .tab { display: none; }
   .tab.active { display: block; }
-  #tab-plan { max-width: 700px; margin: 0 auto; }
+  #tab-plan { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 700px) 300px; gap: 30px; align-items: start; justify-content: center; }
+  .plan-rail { position: sticky; top: 62px; }
+  .plan-rail .pr-head { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--terra); border-bottom: 1px solid var(--line); padding-bottom: 7px; margin-bottom: 10px; font-weight: 600; }
+  .plan-rail .pr-card { background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; }
+  .pr-day { padding: 5px 0; border-bottom: 1px dotted #efe8d6; }
+  .pr-day:last-child { border-bottom: 0; }
+  .pr-day b { display: block; font-family: 'Iowan Old Style','Palatino',Georgia,serif; font-size: 12.5px; color: var(--green); }
+  .pr-day span { display: block; font-size: 10.5px; color: #56503f; line-height: 1.45; }
+  .pr-day .star2 { background: #f3ecd5; border-radius: 3px; padding: 1px 4px; margin: 1px -4px; color: var(--green); font-weight: 600; }
+  .pr-day .dim { color: #a39a85; }
+  .pr-more { display: block; margin-top: 9px; font-size: 10.5px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--terra); cursor: pointer; text-decoration: none; }
+  @media (max-width: 1080px) { #tab-plan { grid-template-columns: 1fr; max-width: 700px; } .plan-rail { display: none; } }
   .music-intro { font: italic 13.5px Georgia, serif; color: #56503f; margin-bottom: 16px; }
   .music-intro a { color: var(--terra); }
   #tab-music .setlist { max-width: 980px; }
@@ -268,7 +279,7 @@
 
   footer { text-align: center; font-size: 11px; color: var(--muted); padding: 26px 20px 40px; border-top: 1px solid var(--line); }
   @media print {
-    .hero .strip, .hero-video, .navbar, .filters, .toolbar, .grid, .coltitle.dir, #tab-food, #tab-pubs, #tab-sights, #tab-kinsale, #tab-music, #tab-footy, #tab-craic, footer { display: none !important; }
+    .hero .strip, .hero-video, .navbar, .filters, .toolbar, .grid, .coltitle.dir, .plan-rail, #tab-food, #tab-pubs, #tab-sights, #tab-kinsale, #tab-music, #tab-footy, #tab-craic, footer { display: none !important; }
     #tab-plan { display: block !important; }
     .slot { min-height: auto; }
     body { background: #fff; }
@@ -310,6 +321,7 @@
 
 <div class="wrap">
   <section class="tab" id="tab-plan">
+    <div class="plan-main">
       <h2 class="coltitle">The Itinerary</h2>
       <div class="plans-label">One-click suggested plans — apply, then tweak any slot</div>
       <div class="plans" id="plans"></div>
@@ -319,6 +331,21 @@
         <button class="btn ghost" onclick="window.print()">Print</button>
         <button class="btn ghost" id="resetBtn">Reset plan</button>
       </div>
+    </div>
+    <aside class="plan-rail">
+      <div class="pr-head">⚽ World Cup · Irish time</div>
+      <div class="pr-card">
+        <div class="pr-day"><b>Thu 25</b><span>21:00 Ecuador v Germany 🍺</span></div>
+        <div class="pr-day"><b>Fri 26</b><span class="star2">20:00 NORWAY v FRANCE 🇳🇴</span><span class="dim">…during The Cure. Plan accordingly.</span></div>
+        <div class="pr-day"><b>Sat 27</b><span>22:00 Panama v England 🍺</span><span class="dim">01:00 Uruguay v Spain 🌙</span></div>
+        <div class="pr-day"><b>Sun 28</b><span>20:00 R32 — poss. Mexico v Canada 🍺</span></div>
+        <div class="pr-day"><b>Mon 29</b><span>18:00 &amp; 21:30 R32 double-header 🍺</span></div>
+        <div class="pr-day"><b>Tue 30</b><span class="star2">18:00 or 22:00 — Norway's R32, if top two</span></div>
+        <div class="pr-day"><b>Wed 1</b><span>17:00 England's R32 — poss. v Norway 🍺</span><span class="dim">21:00 R32 (likely Belgium)</span></div>
+        <div class="pr-day"><b>Thu 2</b><span class="dim">20:00 R32 — watch from Oslo</span></div>
+        <a class="pr-more" onclick="switchTab('footy')">Full schedule → The Football</a>
+      </div>
+    </aside>
   </section>
 
   <section class="tab" id="tab-food">
