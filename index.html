@@ -787,8 +787,8 @@ const R = [
    openTxt:'<b>Tue–Thu</b> 5–10pm · <b>Fri–Sat</b> 12–4 &amp; 5–10pm · <b>Sun</b> 1–8pm · closed Mon',
    addr:'3 Castle Market, Dublin 2', site:'https://lavespa.ie', menu:'https://lavespa.ie/menu/' },
 
- { slug:'bigfan', name:'BIGFAN', area:'Aungier Street', cuisine:'Chinese small plates', price:'€€', group:'world',
-   badges:[['bib','Bib Gourmand 2026'],['','Bib of the Month Feb 2026']],
+ { slug:'bigfan', name:'BIGFAN', area:'Aungier Street', cuisine:'Chinese small plates', price:'€€', group:'booked',
+   badges:[['bib','Bib Gourmand 2026'],['','Bib of the Month Feb 2026'],['booked','Booked Sat 27/6 · 20:45 · 6 pax']],
    quote:{t:'Wagyu cheeseburger dumplings… this piece of scalding hot mastery is creative genius.', by:'Corinna Hardgrave, The Irish Times, 2022', url:'https://www.irishtimes.com/life-and-style/food-and-drink/celebrate-chinese-new-year-the-right-way-at-this-michelin-listed-dublin-restaurant-1.4779795'},
    order:[['Wagyu cheeseburger jiaozi','€13'],['Wu Ya bao — master-stock beef','€8'],['BLACK xiao long bao','€15'],['Wong’s lamb','€16'],['Whole steamed sea bass','€32']],
    est:'Most plates €8–15 · cocktails €13.50–15 · share everything',
@@ -1029,7 +1029,7 @@ const DAYS = [
    events:[['07:35','Flight from Oslo, lands 08:55'],['16:00','Check in — The Fleet']],
    slots:{lunch:true, dinner:'uno-mas'} },
  { key:'fri26', label:'Fri 26 June', wd:'fri', city:'Dublin', events:[['eve','🎸 The Cure @ Marlay Park (doors/start TBC) — eat early or fast']], slots:{lunch:'fish-shop', dinner:true} },
- { key:'sat27', label:'Sat 27 June', wd:'sat', city:'Dublin', events:[['12:45','🍺 Guinness Storehouse — STOUTie Experience · 6 guests']], slots:{lunch:true, dinner:true} },
+ { key:'sat27', label:'Sat 27 June', wd:'sat', city:'Dublin', events:[['12:45','🍺 Guinness Storehouse — STOUTie Experience · 6 guests']], slots:{lunch:true, dinner:'bigfan'} },
  { key:'sun28', label:'Sun 28 June', wd:'sun', city:'Dublin → Cork',
    events:[['12:00','Check out — The Fleet'],['16:00','Check in — Isaacs Hotel Cork City']],
    slots:{lunch:true, dinner:true}, slotCity:{lunch:'dublin', dinner:'cork'} },
@@ -1048,6 +1048,7 @@ const DAYS = [
 const BOOKINGS = {
   'thu25-dinner': { slug:'uno-mas',      time:'20:30', pax:6, ref:null, tag:'Booked Thu 25/6' },
   'fri26-lunch':  { slug:'fish-shop',    time:'12:30', pax:4, ref:null, tag:'Booked Fri 26/6' },
+  'sat27-dinner': { slug:'bigfan',       time:'20:45', pax:6, ref:null, tag:'Booked Sat 27/6' },
   'wed01-dinner': { slug:'spitalfields', time:'17:45', pax:6, ref:null, tag:'Booked Wed 1/7' },
 };
 const BOOKED_BY_SLUG = Object.fromEntries(Object.values(BOOKINGS).map(b => [b.slug, b]));
