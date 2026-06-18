@@ -769,8 +769,8 @@ const R = [
    openTxt:'<b>Dinner only</b>, Tue–Sat from 5pm · closed Sun &amp; Mon',
    addr:'73 Francis Street, The Liberties, Dublin 8', site:'https://www.notionsdublin.com', menu:'https://www.twopupscoffee.com/notions-landing-page' },
 
- { slug:'fish-shop', name:'Fish Shop', area:'Smithfield', cuisine:'Seafood &amp; wine', price:'€€', group:'wine',
-   badges:[['bib','Best Seafood, IRA 2019'],['','~16 seats — book ahead']],
+ { slug:'fish-shop', name:'Fish Shop', area:'Smithfield', cuisine:'Seafood &amp; wine', price:'€€', group:'booked',
+   badges:[['bib','Best Seafood, IRA 2019'],['','~16 seats'],['booked','Booked Fri 26/6 · 12:30 · 4 pax']],
    quote:{t:'Ireland’s best fish and chip shop, by a country mile.', by:'Catherine Cleary, The Irish Times, 2017', url:'https://www.irishtimes.com/life-and-style/food-and-drink/restaurant-reviews/review-ireland-s-best-fish-and-chip-shop-by-a-country-mile-1.3306897'},
    order:[['Kelly’s Gigas oysters ×3','€11'],['Smoked haddock croquettes','€9'],['Beer-battered hake &amp; chips','€22.95'],['Scallops, brown butter','€17.95'],['Sticky toffee pudding','€11']],
    est:'Catch changes daily · 30+ wines by the glass',
@@ -1028,8 +1028,8 @@ const DAYS = [
  { key:'thu25', label:'Thu 25 June', wd:'thu', city:'Dublin',
    events:[['07:35','Flight from Oslo, lands 08:55'],['16:00','Check in — The Fleet']],
    slots:{lunch:true, dinner:'uno-mas'} },
- { key:'fri26', label:'Fri 26 June', wd:'fri', city:'Dublin', events:[['eve','🎸 The Cure @ Marlay Park (doors/start TBC) — eat early or fast']], slots:{lunch:true, dinner:true} },
- { key:'sat27', label:'Sat 27 June', wd:'sat', city:'Dublin', events:[], slots:{lunch:true, dinner:true} },
+ { key:'fri26', label:'Fri 26 June', wd:'fri', city:'Dublin', events:[['eve','🎸 The Cure @ Marlay Park (doors/start TBC) — eat early or fast']], slots:{lunch:'fish-shop', dinner:true} },
+ { key:'sat27', label:'Sat 27 June', wd:'sat', city:'Dublin', events:[['12:45','🍺 Guinness Storehouse — STOUTie Experience · 6 guests']], slots:{lunch:true, dinner:true} },
  { key:'sun28', label:'Sun 28 June', wd:'sun', city:'Dublin → Cork',
    events:[['12:00','Check out — The Fleet'],['16:00','Check in — Isaacs Hotel Cork City']],
    slots:{lunch:true, dinner:true}, slotCity:{lunch:'dublin', dinner:'cork'} },
@@ -1047,7 +1047,8 @@ const DAYS = [
    hold the restaurant slug for the slot to render as locked/BOOKED. */
 const BOOKINGS = {
   'thu25-dinner': { slug:'uno-mas',      time:'20:30', pax:6, ref:null, tag:'Booked Thu 25/6' },
-  'wed01-dinner': { slug:'spitalfields', time:'17:45', pax:6, ref:null,       tag:'Booked Wed 1/7' },
+  'fri26-lunch':  { slug:'fish-shop',    time:'12:30', pax:4, ref:null, tag:'Booked Fri 26/6' },
+  'wed01-dinner': { slug:'spitalfields', time:'17:45', pax:6, ref:null, tag:'Booked Wed 1/7' },
 };
 const BOOKED_BY_SLUG = Object.fromEntries(Object.values(BOOKINGS).map(b => [b.slug, b]));
 function bookingSub(b) {
