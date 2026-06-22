@@ -878,8 +878,8 @@ const R = [
    openTxt:'Marina Market hours — every day 8am–8pm',
    addr:'Marina Market, Centre Park Road, Cork', site:'https://www.instagram.com/ocrasseafood/', menu:'https://www.marinamarket.ie/vendors' },
 
- { slug:'da-mirco', name:'da Mirco', area:'Bridge St, Victorian Quarter', cuisine:'Northern-Italian osteria', price:'€€', group:'cork', city:'cork',
-   badges:[['bib','Irish Times 9/10'],['','Menu rotates monthly']],
+ { slug:'da-mirco', name:'da Mirco', area:'Bridge St, Victorian Quarter', cuisine:'Northern-Italian osteria', price:'€€', group:'booked', city:'cork',
+   badges:[['bib','Irish Times 9/10'],['','Menu rotates monthly'],['booked','Booked Tue 30/6 · 19:30 · 6 pax']],
    quote:{t:'This restaurant is so wonderful I want to go back the very next day… Da Mirco feels close to a perfect restaurant.', by:'Corinna Hardgrave, The Irish Times, 2023', url:'https://www.irishtimes.com/food/restaurants/review/2023/11/23/this-restaurant-is-so-wonderful-i-want-to-go-back-the-very-next-day/'},
    order:[['Starter + main','€42'],['Main + dessert','€35'],['Tasting menu','€72'],['Wine pairing','+€50']],
    est:'30 seats · Slow Food Bitto Storico cheese · book via ResDiary',
@@ -1034,7 +1034,7 @@ const DAYS = [
    events:[['12:00','Check out — The Fleet'],['16:00','Check in — Isaacs Hotel Cork City']],
    slots:{lunch:true, dinner:true}, slotCity:{lunch:'dublin', dinner:'cork'} },
  { key:'mon29', label:'Mon 29 June', wd:'mon', city:'Cork', cork:true, events:[], slots:{lunch:true, dinner:true} },
- { key:'tue30', label:'Tue 30 June', wd:'tue', city:'Cork', cork:true, events:[], slots:{lunch:true, dinner:true} },
+ { key:'tue30', label:'Tue 30 June', wd:'tue', city:'Cork', cork:true, events:[], slots:{lunch:true, dinner:'da-mirco'} },
  { key:'wed01', label:'Wed 1 July', wd:'wed', city:'Cork → Dublin',
    events:[['10:30','Check out — Isaacs Hotel'],['16:00','Check in — The Fleet']],
    slots:{lunch:false, dinner:'spitalfields'} },
@@ -1049,6 +1049,7 @@ const BOOKINGS = {
   'thu25-dinner': { slug:'uno-mas',      time:'20:30', pax:6, ref:null, tag:'Booked Thu 25/6' },
   'fri26-lunch':  { slug:'fish-shop',    time:'12:30', pax:4, ref:null, tag:'Booked Fri 26/6' },
   'sat27-dinner': { slug:'bigfan',       time:'20:45', pax:6, ref:null, tag:'Booked Sat 27/6' },
+  'tue30-dinner': { slug:'da-mirco',     time:'19:30', pax:6, ref:null, tag:'Booked Tue 30/6' },
   'wed01-dinner': { slug:'spitalfields', time:'17:45', pax:6, ref:null, tag:'Booked Wed 1/7' },
 };
 const BOOKED_BY_SLUG = Object.fromEntries(Object.values(BOOKINGS).map(b => [b.slug, b]));
