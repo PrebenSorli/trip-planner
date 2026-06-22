@@ -978,8 +978,8 @@ const R = [
    addr:'Hayfield Manor, Perrott Avenue, College Road, Cork', site:'https://www.hayfieldmanor.ie', menu:'https://www.hayfieldmanor.ie/dining/perrotts-cork-city-bistro' },
 
  /* ---------------- KINSALE (~40 min day trip) ---------------- */
- { slug:'fishy-fishy', name:'Fishy Fishy', area:'Kinsale harbour', cuisine:'Seafood institution', price:'€€€', group:'kinsale', city:'cork',
-   badges:[['bib','Ireland’s most famous seafood house'],['','Closed Tuesdays']],
+ { slug:'fishy-fishy', name:'Fishy Fishy', area:'Kinsale harbour', cuisine:'Seafood institution', price:'€€€', group:'booked', city:'cork',
+   badges:[['bib','Ireland’s most famous seafood house'],['','Closed Tuesdays'],['booked','Booked Mon 29/6 · 16:40 · 6 pax']],
    quote:{t:'The Shanahans’ reputation for offering the widest possible range and freshest of fish is unrivalled throughout Ireland.', by:'Georgina Campbell, Ireland Guide', url:'https://www.ireland-guide.com/establishment/fishy-fishy.5331.html'},
    order:[['All-day seafood menu','no published prices'],['Editorial estimate','€45–55 pp'],['Wine by the glass','€6.95–9.95']],
    est:'TV chef Martin Shanahan · terrace on Crowley’s Quay',
@@ -1033,7 +1033,7 @@ const DAYS = [
  { key:'sun28', label:'Sun 28 June', wd:'sun', city:'Dublin → Cork',
    events:[['12:00','Check out — The Fleet'],['16:00','Check in — Isaacs Hotel Cork City']],
    slots:{lunch:true, dinner:true}, slotCity:{lunch:'dublin', dinner:'cork'} },
- { key:'mon29', label:'Mon 29 June', wd:'mon', city:'Cork', cork:true, events:[], slots:{lunch:true, dinner:true} },
+ { key:'mon29', label:'Mon 29 June', wd:'mon', city:'Cork', cork:true, events:[], slots:{lunch:'fishy-fishy', dinner:true} },
  { key:'tue30', label:'Tue 30 June', wd:'tue', city:'Cork', cork:true, events:[], slots:{lunch:true, dinner:'da-mirco'} },
  { key:'wed01', label:'Wed 1 July', wd:'wed', city:'Cork → Dublin',
    events:[['10:30','Check out — Isaacs Hotel'],['16:00','Check in — The Fleet']],
@@ -1049,6 +1049,7 @@ const BOOKINGS = {
   'thu25-dinner': { slug:'uno-mas',      time:'20:30', pax:6, ref:null, tag:'Booked Thu 25/6' },
   'fri26-lunch':  { slug:'fish-shop',    time:'12:30', pax:4, ref:null, tag:'Booked Fri 26/6' },
   'sat27-dinner': { slug:'bigfan',       time:'20:45', pax:6, ref:null, tag:'Booked Sat 27/6' },
+  'mon29-lunch':  { slug:'fishy-fishy',  time:'16:40', pax:6, ref:null, tag:'Booked Mon 29/6' },
   'tue30-dinner': { slug:'da-mirco',     time:'19:30', pax:6, ref:null, tag:'Booked Tue 30/6' },
   'wed01-dinner': { slug:'spitalfields', time:'17:45', pax:6, ref:null, tag:'Booked Wed 1/7' },
 };
